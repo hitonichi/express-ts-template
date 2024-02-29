@@ -1,6 +1,6 @@
 {
-  "name": "express-ts-template",
-  "version": "1.0.0",
+  "name": "@hitonichi/express-ts-template",
+  "version": "0.0.1",
   "description": "",
   "main": "index.ts",
   "scripts": {
