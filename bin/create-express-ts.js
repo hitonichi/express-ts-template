@@ -23,6 +23,17 @@ if (!checkedOut) {
   process.exit(-1);
 }
 
+const path = require('path');
+const fs = require('fs');
+
+fs.rmSync('.git', { recursive: true, force: true });
+fs.rmSync('bin', { recursive: true, force: true });
+
+const projectPackageJson = require(path.join(dirName, 'package.json'));
+projectPackageJson.name = dirName;
+projectPackageJson.description = '';
+projectPackageJson.bin = '';
+
 console.log('Installing dependencies...');
 
 const installed = fireCmd(npmInstallDepsCmd);
