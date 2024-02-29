@@ -1,8 +1,11 @@
 {
-  "name": "@hitonichi/express-ts-template",
+  "name": "@dtrn/express-ts-template",
   "version": "0.0.1",
-  "description": "",
+  "description": "Scaffold an ExpressJS app with Typescript",
   "main": "index.ts",
+  "bin": {
+    "create-express-ts": "bin/create-express-ts.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
