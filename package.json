@@ -1,7 +1,17 @@
 {
   "name": "@dtrn/express-ts-template",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Scaffold an ExpressJS app with Typescript",
+  "keywords": [
+    "nodejs",
+    "node.js",
+    "express",
+    "expressjs",
+    "template",
+    "boilerplate",
+    "typescript",
+    "project"
+  ],
   "main": "index.ts",
   "bin": {
     "create-express-ts": "bin/create-express-ts.js"
@@ -16,16 +26,13 @@
     "lint:check": "eslint --ignore-path .eslintignore \"src/**/*.ts\"",
     "prepare": "husky"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "pg": "^8.11.3"
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
-    "@types/pg": "^8.10.9",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "eslint": "^8.57.0",
