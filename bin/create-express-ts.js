@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 
-const dirName = process.argv[2];
-const gitCloneCmd = `git clone https://github.com/hitonichi/express-ts-template.git ${dirName}`;
-const npmInstallDepsCmd = `cd ${dirName} && npm i`;
+const projectName = process.argv[2];
+const gitCloneCmd = `git clone https://github.com/hitonichi/express-ts-template.git ${projectName}`;
+const npmInstallDepsCmd = `cd ${projectName} && npm i`;
 
 const { execSync } = require('child_process');
 
@@ -25,24 +25,39 @@ if (!checkedOut) {
 
 const path = require('path');
 const fs = require('fs');
+const currentPath = process.cwd();
+const projectPath = path.join(currentPath, projectName);
 
-fs.rmSync('.git', { recursive: true, force: true });
-fs.rmSync('bin', { recursive: true, force: true });
+const installDeps = async () => {
+  try {
+    const rmGit = fs.rmSync(path.join(projectPath, '.git'), { recursive: true, force: true });
+    const rmBin = fs.rmSync(path.join(projectPath, 'bin'), { recursive: true, force: true });
+    await Promise.all([rmBin, rmGit]);
 
-const projectPackageJson = require(path.join(dirName, 'package.json'));
-projectPackageJson.name = dirName;
-projectPackageJson.description = '';
-projectPackageJson.bin = '';
+    const projectPackageJson = require(path.join(projectPath, 'package.json'));
+    projectPackageJson.name = projectName;
+    projectPackageJson.description = '';
+    projectPackageJson.bin = '';
 
-console.log('Installing dependencies...');
+    fs.writeFileSync(path.join(projectPath, 'package.json'), JSON.stringify(projectPackageJson, null, 2));
 
-const installed = fireCmd(npmInstallDepsCmd);
+    console.log('Installing dependencies...');
 
-if (!installed) {
-  console.error('Failed to install dependencies');
-  process.exit(-1);
-}
+    const installed = fireCmd(npmInstallDepsCmd);
 
-console.log(`Success! Created ${dirName} at ${process.cwd()}/${dirName}`);
-console.log('Inside that directory, you can run several commands:');
-console.log('  npm run start && npm run build');
+    if (!installed) {
+      console.error('Failed to install dependencies');
+      process.exit(-1);
+    }
+
+    console.log(`Success! Created ${projectName} at ${process.cwd()}/${projectName}`);
+    console.log('Inside that directory, you can run several commands:');
+    console.log('  npm run start && npm run build');
+  } catch (err) {
+    // clean up in case of error, so the user does not have to do it manually
+    fs.rmSync(projectPath, { recursive: true, force: true });
+    console.log(err);
+  }
+};
+
+installDeps();

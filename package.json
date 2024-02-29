@@ -1,6 +1,6 @@
 {
   "name": "@dtrn/express-ts-template",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Scaffold an ExpressJS app with Typescript",
   "main": "index.ts",
   "bin": {
