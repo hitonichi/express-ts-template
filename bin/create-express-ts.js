@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 const projectName = process.argv[2];
-const gitCloneCmd = `git clone https://github.com/hitonichi/express-ts-template.git ${projectName}`;
+const gitCloneCmd = `git clone https://github.com/hitonichi/express-ts-template.git ${projectName} --quiet`;
 const npmInstallDepsCmd = `cd ${projectName} && npm i`;
 
 const { execSync } = require('child_process');
@@ -15,6 +15,8 @@ const fireCmd = (cmd) => {
   }
   return true;
 };
+
+console.log('Checking out the repository...');
 
 const checkedOut = fireCmd(gitCloneCmd);
 
